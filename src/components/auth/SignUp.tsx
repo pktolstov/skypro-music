@@ -25,18 +25,21 @@ export default function SignUp() {
                 type="text"
                 name="login"
                 placeholder="Почта"
+                autoComplete="username"
               />
               <input
                 className={styles.modal__input}
                 type="password"
                 name="password"
                 placeholder="Пароль"
+                autoComplete="new-password"
               />
               <input
                 className={styles.modal__input}
                 type="password"
                 name="password"
                 placeholder="Повторите пароль"
+                autoComplete="new-password"
               />
               <div className={styles.errorContainer}></div>
               <button className={styles.modal__btnSignupEnt}>
