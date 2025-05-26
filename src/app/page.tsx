@@ -1,5 +1,3 @@
-
-
 import styles from './page.module.css';
 import Navigation from '@/components/Navigation/Navigation';
 import Centerblock from '@/components/Centerblock/Centerblock';
