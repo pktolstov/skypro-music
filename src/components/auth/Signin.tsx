@@ -24,12 +24,14 @@ export default function Signin() {
                                 type="text"
                                 name="login"
                                 placeholder="Почта"
+                                autoComplete="username"
                             />
                             <input
                                 className={classNames(styles.modal__input)}
                                 type="password"
                                 name="password"
                                 placeholder="Пароль"
+                                autoComplete="current-password"
                             />
                             <div className={styles.errorContainer}>{/*Блок для ошибок*/}</div>
                             <button className={styles.modal__btnEnter}>Войти</button>
