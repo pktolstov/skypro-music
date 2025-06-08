@@ -52,7 +52,6 @@ export default function Centerblock() {
   };
 
   const handleSelect = (value: string) => {
-    console.log(value);
     setSelectedValue(value);
     setActiveFilter(null);
   };
@@ -66,6 +65,7 @@ export default function Centerblock() {
         <FilterItem
           label="исполнителю"
           isActive={activeFilter === 'исполнителю'}
+          count={activeFilter === 'исполнителю' ? values.length : undefined}
           onClick={handleFilterClick}
         />
         <FilterItem
@@ -77,6 +77,7 @@ export default function Centerblock() {
           label="жанру"
           isActive={activeFilter === 'жанру'}
           onClick={handleFilterClick}
+          count={activeFilter === 'жанру' ? values.length : undefined}
         />
       </div>
 

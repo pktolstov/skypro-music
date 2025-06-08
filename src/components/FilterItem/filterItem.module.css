@@ -3,6 +3,7 @@
 }
 
 .filter__button {
+  position: relative;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -21,4 +22,19 @@
 .active {
   color: #b672ff;
   border-color: #9a48f1;
+}
+.count {
+  position: absolute;
+  top: -8px; /* можно подстроить */
+  right: -8px; /* можно подстроить */
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #ad61ff;
+  font-size: 12px;
+  border-radius: 50%;
+  pointer-events: none; /* чтобы не мешало кликам по кнопке */
 }
