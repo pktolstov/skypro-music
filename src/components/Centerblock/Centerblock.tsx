@@ -8,35 +8,54 @@ import FilterItem from '../FilterItem/FilterItem';
 import FilterModal from '../Filter/Filter';
 import { data } from '@/data';
 import { TrackType } from '@/sharedTypes/sharedTypes';
+import { getUniqueValueByKey } from '@/utils/helper';
 
 export default function Centerblock() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string>('');
-  const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+  const [position, setPosition] = useState<{ top: number; left: number }>({
+    top: 0,
+    left: 0,
+  });
+  const [values, setValues] = useState<string[]>([]);
 
-  const handleFilterClick = (label: string, buttonRef: HTMLDivElement | null) => {
+  const handleFilterClick = (
+    label: string,
+    buttonRef: HTMLDivElement | null,
+  ) => {
     if (buttonRef) {
       const rect = buttonRef.getBoundingClientRect();
       setPosition({
-        top: rect.bottom + window.scrollY +8,
-        left: rect.left + window.scrollX -68,
+        top: rect.bottom + window.scrollY + 8,
+        left: rect.left + window.scrollX - 38,
       });
     }
-    setActiveFilter((prev) => (prev === label ? null : label));
+
+    // если клик по тому же самому активному фильтру — просто закрываем модалку
+    if (activeFilter === label) {
+      setActiveFilter(null);
+      return;
+    }
+
+    // обновляем values в зависимости от фильтра
+    if (label === 'исполнителю') {
+      setValues(getUniqueValueByKey(data, 'author'));
+    } else if (label === 'жанру') {
+      setValues(getUniqueValueByKey(data, 'genre'));
+    } else if (label === 'году выпуска') {
+      // setValues(getUniqueValueByKey(data, 'release_date'));
+      setValues(['По умолчанию', 'Сначала новые', 'Сначала старые']);
+    }
+
+    // открываем модалку для нового фильтра
+    setActiveFilter(label);
   };
 
   const handleSelect = (value: string) => {
+    console.log(value);
     setSelectedValue(value);
     setActiveFilter(null);
   };
-
-  const values = [
-    'Michael Jackson',
-    'Frank Sinatra',
-    'Calvin Harris',
-    'Zhu',
-    'Arctic Monkeys',
-  ];
 
   return (
     <div className={styles.centerblock}>
@@ -98,32 +117,6 @@ export default function Centerblock() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 'use client';
 // import { useState } from 'react';
