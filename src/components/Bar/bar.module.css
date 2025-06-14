@@ -132,6 +132,7 @@
   stroke: #696969;
 }
 
+
 .player__btnShuffle {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -156,6 +157,9 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
+}
+.player__iconActive {
+  stroke: #fff;
 }
 
 .trackPlay__contain {

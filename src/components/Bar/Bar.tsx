@@ -3,15 +3,19 @@ import Link from 'next/link';
 import styles from './bar.module.css';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { setIsPlay } from '@/store/features/trackSlice';
+import { getTimePanel } from '@/utils/helper';
 
 export default function Bar() {
   const currentTrack = useAppSelector((state) => state.tracks.currentTrack);
   const isPlay = useAppSelector((state) => state.tracks.isPlay);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const dispatch = useAppDispatch();
-  // console.log(currentTrack);
+  const [isLoop, setIsLoop] = useState(false);
+  const [isShuffle, setIsShuffle] = useState(false);
+  const [isLoadedTrack, setIsLoadedTrack] = useState(false);
+  const [volume, setVolume] = useState(0.5)
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -29,7 +33,6 @@ export default function Bar() {
     if (audioRef.current) {
       audioRef.current.play();
       dispatch(setIsPlay(true));
-      console.log(isPlay);
     }
   };
   const pauseTrack = () => {
@@ -38,6 +41,32 @@ export default function Bar() {
       dispatch(setIsPlay(false));
     }
   };
+  const onToggleLoop = () => {
+    setIsLoop(!isLoop);
+  };
+  const onToggleShuffle = () => {
+    setIsShuffle(!isShuffle);
+  };
+  const onTimeUpdate = () => {
+    if (audioRef.current) console.log(audioRef.current.currentTime);
+    console.log(audioRef.current?.duration);
+    console.log(audioRef.current?.volume);
+
+  };
+  const onLoadedMetaData = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+      dispatch(setIsPlay(true))
+    }
+     
+  };
+  const onVolumeChange = (e) => {
+    setVolume(Number(e.target.value));
+    if (audioRef.current) {
+      audioRef.current.volume = Number(e.target.value) / 100;
+      console.log(volume);
+    }
+  }
   const alertDev = () => {
     alert('Данный функционал в разработке');
   };
@@ -49,13 +78,16 @@ export default function Bar() {
         controls
         src={currentTrack?.track_file}
         preload="auto"
+        loop={isLoop}
+        onTimeUpdate={onTimeUpdate}
+        onLoadedMetadata={onLoadedMetaData}
       ></audio>
       <div className={styles.bar__content}>
         <div className={styles.bar__playerProgress}></div>
         <div className={styles.bar__playerBlock}>
           <div className={styles.bar__player}>
             <div className={styles.player__controls}>
-              <div className={styles.player__btnPrev } onClick={alertDev}>
+              <div className={styles.player__btnPrev} onClick={alertDev}>
                 <svg className={styles.player__btnPrevSvg}>
                   <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
                 </svg>
@@ -81,8 +113,13 @@ export default function Bar() {
               </div>
               <div
                 className={classNames(styles.player__btnRepeat, styles.btnIcon)}
-              onClick={alertDev} >
-                <svg className={styles.player__btnRepeatSvg}>
+                onClick={onToggleLoop}
+              >
+                <svg
+                  className={classNames(styles.player__btnRepeatSvg, {
+                    [styles.player__iconActive]: isLoop,
+                  })}
+                >
                   <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
                 </svg>
               </div>
@@ -91,8 +128,13 @@ export default function Bar() {
                   styles.player__btnShuffle,
                   styles.btnIcon,
                 )}
-                onClick={alertDev}>
-                <svg className={styles.player__btnShuffleSvg}>
+                onClick={onToggleShuffle}
+              >
+                <svg
+                  className={classNames(styles.player__btnShuffleSvg, {
+                    [styles.player__iconActive]: isShuffle,
+                  })}
+                >
                   <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
                 </svg>
               </div>
@@ -156,6 +198,7 @@ export default function Bar() {
                   )}
                   type="range"
                   name="range"
+                  onChange={onVolumeChange}
                 />
               </div>
             </div>
