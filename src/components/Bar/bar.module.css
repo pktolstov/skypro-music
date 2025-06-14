@@ -5,7 +5,9 @@
   width: 100%;
   background: rgba(28, 28, 28, 0.5);
 }
-
+.audio {
+  display: none;
+}
 .bar__content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -155,6 +157,9 @@
   -ms-flex-direction: row;
   flex-direction: row;
 }
+.player__iconActive {
+  stroke: #fff;
+}
 
 .trackPlay__contain {
   width: auto;
@@ -261,6 +266,14 @@
   height: 13px;
   fill: transparent;
   stroke: #696969;
+}
+.track__timeText {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: right;
+  color: #696969;
 }
 
 .volume__content {
