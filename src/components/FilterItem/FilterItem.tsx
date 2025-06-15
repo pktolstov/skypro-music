@@ -30,8 +30,6 @@ export default function FilterItem({ label, isActive, onClick,count }: FilterIte
         {typeof count === 'number' && (
       <div className={styles.count}>{count}</div>)}
       </div>
-    {/* //   <div className={styles.count}>5</div> */}
-      {/* {typeof count === 'number' && <span>({count})</span>} */}
     </div>
     </>
   );
