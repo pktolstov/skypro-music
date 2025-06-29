@@ -1,14 +1,29 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { trackSliceReducer } from '@/store/features/trackSlice';
+import authReducer from '@/store/features/authSlice';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // l
 
 export const makeStore = () => {
   return configureStore({
     reducer: combineReducers({
       tracks: trackSliceReducer,
+      auth: authReducer,
+     
     }),
   });
 };
+
+
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+//   whitelist: ['auth'], // какие редьюсеры хотим сохранять
+// };
+
+// const persistedReducer = persistReducer(persistConfig, );
+// export const persistor = persistStore(store);
 
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>;

@@ -1,5 +1,5 @@
 // components/Navigation/Navigation.tsx
-'use client'
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -16,13 +16,15 @@ export default function Navigation() {
   return (
     <nav className={styles.main__nav}>
       <div className={styles.nav__logo}>
-        <Image
-          width={113}
-          height={17}
-          className={'logo__image'}
-          src="/img/logo.png"
-          alt={'logo'}
-        />
+        <Link href="/music/main">
+          <Image
+            width={113}
+            height={17}
+            className={'logo__image'}
+            src="/img/logo.png"
+            alt={'logo'}
+          />
+        </Link>
       </div>
 
       <BurgerButton isOpen={menuOpen} toggle={toggleMenu} />
@@ -44,7 +46,7 @@ export default function Navigation() {
             </Link>
           </li>
           <li className={styles.menu__item}>
-            <Link href="../signin.html" className={styles.menu__link}>
+            <Link href="/auth/signin" className={styles.menu__link}>
               Войти
             </Link>
           </li>
@@ -53,20 +55,6 @@ export default function Navigation() {
     </nav>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import Image from 'next/image';
 // import Link from 'next/link';

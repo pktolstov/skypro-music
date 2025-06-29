@@ -10,7 +10,12 @@ import { data } from '@/data';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { getUniqueValueByKey } from '@/utils/helper';
 
-export default function Centerblock() {
+type TrackDataProps = {
+  data: TrackType[],
+  title: string
+}
+
+export default function Centerblock({data,title}: TrackDataProps) {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [position, setPosition] = useState<{ top: number; left: number }>({
@@ -59,7 +64,7 @@ export default function Centerblock() {
   return (
     <div className={styles.centerblock}>
       <Search />
-      <h2 className={styles.centerblock__h2}>Треки</h2>
+      <h2 className={styles.centerblock__h2}>{title}</h2>
       <div className={styles.centerblock__filter}>
         <div className={styles.filter__title}>Искать по:</div>
         <FilterItem
