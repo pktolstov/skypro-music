@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { getTracks, getTrackSet } from '@/services/tracksApi';
 import { TrackType, TrackSetType } from '@/sharedTypes/sharedTypes';
 import { AxiosError } from 'axios';
+import styles from '../../layout.module.css';
 
 export default function CategoryPage() {
   const params = useParams<{ id: string }>();
@@ -33,6 +34,7 @@ export default function CategoryPage() {
             setError(error.response.data);
             console.log(error.response.data);
           } else if (error.request) {
+            setError(error.request.data);
             console.log(error.request);
           } else {
             setError(`Error, ${error.message}`);
@@ -45,40 +47,17 @@ export default function CategoryPage() {
     fetchData();
   }, [params.id]);
 
+  if (error) {
+    return;
+    <div className={styles.errorContainer}>
+      <p className={styles.errorText}>Ошибка загрузки: {error}</p>;
+    </div>;
+  }
+
   return (
-    <Centerblock
-      data={filteredTracks}
-      title={trackSet ? trackSet.name : ''}
-    />
+    <Centerblock data={filteredTracks} title={trackSet ? trackSet.name : ''} />
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 'use client';
 // import Centerblock from '@/components/Centerblock/Centerblock';
@@ -101,13 +80,13 @@ export default function CategoryPage() {
 //       .then((res) => {
 //         getTrackSet(params.id)
 //         .then((response) => {
-          
+
 //           console.log(response);
 //           setTracksId(response.items)
 //           console.log(tracksSetId);
-          
+
 //           // setTracks(getTracksByIds(tracks, tracksSetId))
-  
+
 //         })
 //         setTracks(res);
 //       })
@@ -135,6 +114,3 @@ export default function CategoryPage() {
 //   }, []);
 //   return <Centerblock data={tracks} title="Треки" />;
 // }
-
-
-
