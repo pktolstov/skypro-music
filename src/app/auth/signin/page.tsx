@@ -81,9 +81,7 @@ export default function Signin() {
           Зарегистрироваться
         </Link>
       </form>
-      {/* <div className={styles.errorContainer}>
-        {error && <span className={styles.errorText}>{error}</span>}
-      </div> */}
+
     </>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import styles from '../layout.module.css';
-// import Centerblock from '@/components/Centerblock/Centerblock';
 import { getTracks } from '@/services/tracksApi';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { useEffect } from 'react';
@@ -15,7 +14,7 @@ export default function Home() {
     () => import('@/components/Centerblock/Centerblock'),
     {
       loading: () => <p className={styles.suspense}>Идёт загрузка треков…</p>,
-      ssr: false, // если хотите только на клиенте
+      ssr: false, 
     },
   );
   useEffect(() => {
@@ -27,22 +26,20 @@ export default function Home() {
         if (error instanceof AxiosError) {
           if (error.response) {
             setError(error.response.data);
-            console.log(error.response.data);
           } else if (error.request) {
             setError(error.request.data);
-            console.log(error.request);
           } else {
             setError(`Error, ${error.message}`);
-            console.log('Error', error.message);
           }
         }
       });
   }, []);
   if (error) {
-    return;
-    <div className={styles.errorContainer}>
-      <p className={styles.errorText}>Ошибка загрузки: {error}</p>;
-    </div>;
+    return (
+      <div className={styles.errorContainer}>
+        <p className={styles.errorText}>Ошибка загрузки: {error}</p>;
+      </div>
+    );
   }
 
   return <Centerblock data={tracks} title="Треки" />;
