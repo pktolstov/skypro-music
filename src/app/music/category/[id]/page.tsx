@@ -21,7 +21,7 @@ export default function CategoryPage() {
         const allTracks = await getTracks();
         const trackSetResponse = await getTrackSet(params.id);
 
-        console.log('trackSet:', trackSetResponse);
+        // console.log('trackSet:', trackSetResponse);
 
         const filtered = getTracksByIds(allTracks, trackSetResponse.items);
 
@@ -55,7 +55,13 @@ export default function CategoryPage() {
   }
 
   return (
-    <Centerblock data={filteredTracks} title={trackSet ? trackSet.name : ''} />
+    <Centerblock 
+    // data={allTracks}
+    // isLoading={fetchIsLoading}
+    // errorRes={fetchError}
+    // title={'Треки'}
+    
+    data={filteredTracks} title={trackSet ? trackSet.name : ''} />
   );
 }
 

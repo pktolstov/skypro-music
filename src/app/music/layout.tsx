@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation/Navigation';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Bar from '@/components/Bar/Bar';
 import { Suspense } from 'react';
+import FetchingTracks from '@/components/FetchingTracks/FetchingTracks';
 
 interface MusicLayoutProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ export default function MusicLayout({ children }: MusicLayoutProps) {
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <main className={styles.main}>
+            <FetchingTracks />
             <Navigation />
             {/* <Suspense fallback={<p className={styles.suspense}>Загрузка треков...</p>}>{children}</Suspense> */}
             {children}

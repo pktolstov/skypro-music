@@ -10,11 +10,18 @@ import { TrackType } from '@/sharedTypes/sharedTypes';
 import { getUniqueValueByKey } from '@/utils/helper';
 
 type TrackDataProps = {
-  data: TrackType[],
-  title: string
-}
+  data: TrackType[];
+  title: string;
+  isLoading: boolean;
+  errorRes: null | string;
+};
 
-export default function Centerblock({data,title}: TrackDataProps) {
+export default function Centerblock({
+  data,
+  title,
+  isLoading,
+  errorRes,
+}: TrackDataProps) {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [position, setPosition] = useState<{ top: number; left: number }>({
@@ -114,9 +121,13 @@ export default function Centerblock({data,title}: TrackDataProps) {
           </div>
         </div>
         <div className={styles.content__playlist}>
-          {data.map((track: TrackType) => (
-            <Track key={track._id} track={track} playlist={data} />
-          ))}
+          {errorRes
+            ? errorRes
+            : isLoading
+              ? <p className={styles.suspense}>Идёт загрузка треков…</p>
+              : data.map((track: TrackType) => (
+                  <Track key={track._id} track={track} playlist={data} />
+                ))}
         </div>
       </div>
     </div>

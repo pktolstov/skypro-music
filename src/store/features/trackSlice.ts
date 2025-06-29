@@ -20,7 +20,7 @@ const initialState: initialStateType = {
   playlist: [],
   shuffledPlaylist: [],
   allTracks: [],
-  fetchError: null, 
+  fetchError: null,
   fetchIsLoading: true,
 };
 
@@ -51,31 +51,45 @@ const trackSlice = createSlice({
       const curIndex = playlist.findIndex(
         (el) => el._id === state.currentTrack?._id,
       );
-      if (curIndex < playlist.length -1) {
+      if (curIndex < playlist.length - 1) {
         const nextIndexTrack = curIndex + 1;
         state.currentTrack = playlist[nextIndexTrack];
       }
-      
-      
     },
     setPrevTrack: (state) => {
-        const playlist = state.isShuffle
-          ? state.shuffledPlaylist
-          : state.playlist;
-  
-        const curIndex = playlist.findIndex(
-          (el) => el._id === state.currentTrack?._id,
-        );
-        if (curIndex > 0) {
-          const nextIndexTrack = curIndex - 1;
-          state.currentTrack = playlist[nextIndexTrack];
-        }
-        
-        
-      },
+      const playlist = state.isShuffle
+        ? state.shuffledPlaylist
+        : state.playlist;
+
+      const curIndex = playlist.findIndex(
+        (el) => el._id === state.currentTrack?._id,
+      );
+      if (curIndex > 0) {
+        const nextIndexTrack = curIndex - 1;
+        state.currentTrack = playlist[nextIndexTrack];
+      }
+    },
+    setAllTracks: (state, action: PayloadAction<TrackType[]>) => {
+      state.allTracks = action.payload;
+    },
+    setFetchError: (state, action: PayloadAction<string>) => {
+      state.fetchError = action.payload;
+    },
+    setFetchIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.fetchIsLoading = action.payload;
+    },
   },
 });
 
-export const { setCurrentTrack, setIsPlay, setCurrentPlaylist, setNextTrack,toggleShuffle, setPrevTrack } =
-  trackSlice.actions;
+export const {
+  setCurrentTrack,
+  setIsPlay,
+  setCurrentPlaylist,
+  setNextTrack,
+  toggleShuffle,
+  setPrevTrack,
+  setFetchIsLoading,
+  setFetchError,
+  setAllTracks, 
+} = trackSlice.actions;
 export const trackSliceReducer = trackSlice.reducer;
