@@ -7,13 +7,16 @@ type ApiError = {
   [key: string]: any;
 };
 
-// type authUserReturn = {
-//   email: string;
-//   username: string;
-//   _id: number;
-// };
+type authUserReturn = {
+  email: string;
+  username: string;
+  _id: number;
+};
 
-export async function signIn(userData: { email: string; password: string }) {
+export async function signIn(userData: {
+  email: string;
+  password: string;
+}): Promise<authUserReturn> {
   try {
     const data = await axios.post(`${BASE_URL}${RoutesApp.login}`, userData, {
       headers: {
@@ -37,7 +40,7 @@ export async function signUp(userData: {
   username: string;
   email: string;
   password: string;
-}) {
+}): Promise<authUserReturn> {
   try {
     const data = await axios.post(`${BASE_URL}${RoutesApp.sighup}`, userData, {
       headers: {
