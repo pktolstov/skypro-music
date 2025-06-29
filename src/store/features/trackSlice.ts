@@ -8,6 +8,9 @@ type initialStateType = {
   isShuffle: boolean;
   playlist: TrackType[];
   shuffledPlaylist: TrackType[];
+  allTracks: TrackType[];
+  fetchError: null | string;
+  fetchIsLoading: boolean;
 };
 
 const initialState: initialStateType = {
@@ -16,6 +19,9 @@ const initialState: initialStateType = {
   isShuffle: false,
   playlist: [],
   shuffledPlaylist: [],
+  allTracks: [],
+  fetchError: null, 
+  fetchIsLoading: true,
 };
 
 const trackSlice = createSlice({
