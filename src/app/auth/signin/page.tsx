@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 export default function Signin() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
   const dispatch = useDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +23,7 @@ export default function Signin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
+    setIsLoading(true)
     try {
       const user = await signIn(formData);
       console.log(user);
@@ -33,8 +34,10 @@ export default function Signin() {
       }
     } catch (err: any) {
       setError(err.message || 'Что-то пошло не так');
-    }
-  };
+    } finally {
+      setIsLoading(false);
+  }; 
+  }
 
   return (
     <>
@@ -71,16 +74,17 @@ export default function Signin() {
         <div className={styles.errorContainer}>
           {error && <span className={styles.errorText}>{error}</span>}
         </div>
-        <button className={styles.modal__btnEnter} type="submit">
+        <button disabled={isLoading} className={styles.modal__btnEnter} type="submit">
           Войти
         </button>
         <Link href={'/auth/signup'} className={styles.modal__btnSignup}>
           Зарегистрироваться
         </Link>
       </form>
-      <div className={styles.errorContainer}>
+      {/* <div className={styles.errorContainer}>
         {error && <span className={styles.errorText}>{error}</span>}
-      </div>
+      </div> */}
     </>
   );
 }
+

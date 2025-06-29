@@ -16,6 +16,7 @@ export default function SignUp() {
     password: '',
   });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
   const dispatch = useDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +26,7 @@ export default function SignUp() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true)
     // if (formData.password !== formData.confirmPassword) {
     //   setError('Пароли не совпадают');
     //   return;
@@ -32,9 +34,9 @@ export default function SignUp() {
 
     try {
       // signUp ожидает { name, login, password }
-      console.log(formData);
+      // console.log(formData);
       const user = await signUp(formData);
-      console.log('Signed up user:', user);
+      // console.log('Signed up user:', user);
 
       if (user) {
         dispatch(setUser(user));
@@ -42,7 +44,7 @@ export default function SignUp() {
       }
     } catch (err: any) {
       setError(err.message || 'Что-то пошло не так');
-    }
+    } 
   };
   return (
     <>
@@ -84,14 +86,14 @@ export default function SignUp() {
           value={formData.password}
           onChange={handleChange}
         />
-        <div className={styles.errorContainer}></div>
-        <button className={styles.modal__btnSignupEnt}>
+        <div className={styles.errorContainer}>{error}</div>
+        <button disabled={isLoading} className={styles.modal__btnSignupEnt}>
           Зарегистрироваться
         </button>
       </form>
-      <div className={styles.errorContainer}>
+      {/* <div className={styles.errorContainer}>
         {error && <span className={styles.errorText}>{error}</span>}
-      </div>
+      </div> */}
     </>
   );
 }

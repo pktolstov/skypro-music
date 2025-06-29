@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { BASE_URL, RoutesApp } from '../constants';
 
-interface ApiError {
+type ApiError = {
   error?: string;
   message?: string;
   [key: string]: any;
-}
+};
+
+// type authUserReturn = {
+//   email: string;
+//   username: string;
+//   _id: number;
+// };
 
 export async function signIn(userData: { email: string; password: string }) {
   try {
