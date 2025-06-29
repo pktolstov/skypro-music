@@ -6,7 +6,6 @@ import Search from '../Search/Search';
 import Track from '../Track/Track';
 import FilterItem from '../FilterItem/FilterItem';
 import FilterModal from '../Filter/Filter';
-import { data } from '@/data';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { getUniqueValueByKey } from '@/utils/helper';
 
