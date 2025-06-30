@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TrackType } from '@/sharedTypes/sharedTypes';
-import { stat } from 'fs';
 
 type initialStateType = {
   currentTrack: TrackType | null;
@@ -45,31 +44,33 @@ const trackSlice = createSlice({
       const curIndex = playlist.findIndex(
         (el) => el._id === state.currentTrack?._id,
       );
-      if (curIndex < playlist.length -1) {
+      if (curIndex < playlist.length - 1) {
         const nextIndexTrack = curIndex + 1;
         state.currentTrack = playlist[nextIndexTrack];
       }
-      
-      
     },
     setPrevTrack: (state) => {
-        const playlist = state.isShuffle
-          ? state.shuffledPlaylist
-          : state.playlist;
-  
-        const curIndex = playlist.findIndex(
-          (el) => el._id === state.currentTrack?._id,
-        );
-        if (curIndex > 0) {
-          const nextIndexTrack = curIndex - 1;
-          state.currentTrack = playlist[nextIndexTrack];
-        }
-        
-        
-      },
+      const playlist = state.isShuffle
+        ? state.shuffledPlaylist
+        : state.playlist;
+
+      const curIndex = playlist.findIndex(
+        (el) => el._id === state.currentTrack?._id,
+      );
+      if (curIndex > 0) {
+        const nextIndexTrack = curIndex - 1;
+        state.currentTrack = playlist[nextIndexTrack];
+      }
+    },
   },
 });
 
-export const { setCurrentTrack, setIsPlay, setCurrentPlaylist, setNextTrack,toggleShuffle, setPrevTrack } =
-  trackSlice.actions;
+export const {
+  setCurrentTrack,
+  setIsPlay,
+  setCurrentPlaylist,
+  setNextTrack,
+  toggleShuffle,
+  setPrevTrack,
+} = trackSlice.actions;
 export const trackSliceReducer = trackSlice.reducer;

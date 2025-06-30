@@ -35,8 +35,10 @@ export default function SignUp() {
         dispatch(setUser(user));
         router.push('/music/main');
       }
-    } catch (err: any) {
-      setError(err.message || 'Что-то пошло не так');
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message || 'Что-то пошло не так');
+      }
     }
   };
   return (

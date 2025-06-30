@@ -4,7 +4,6 @@ import { BASE_URL, RoutesApp } from '../constants';
 type ApiError = {
   error?: string;
   message?: string;
-  [key: string]: any;
 };
 
 type authUserReturn = {

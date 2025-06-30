@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import styles from './centerblock.module.css';
 import classNames from 'classnames';
 import Search from '../Search/Search';
@@ -10,11 +10,11 @@ import { TrackType } from '@/sharedTypes/sharedTypes';
 import { getUniqueValueByKey } from '@/utils/helper';
 
 type TrackDataProps = {
-  data: TrackType[],
-  title: string
-}
+  data: TrackType[];
+  title: string;
+};
 
-export default function Centerblock({data,title}: TrackDataProps) {
+export default function Centerblock({ data, title }: TrackDataProps) {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [position, setPosition] = useState<{ top: number; left: number }>({

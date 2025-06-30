@@ -9,10 +9,10 @@ export default function ReduxProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const storeRef = useRef<AppStore>();
-  if (!storeRef.current) {
-    storeRef.current = makeStore();
-  }
+  const storeRef = useRef<AppStore | null>(null);
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+    storeRef.current = makeStore();
+
+
+  return <Provider store={storeRef.current!}>{children}</Provider>;
 }
