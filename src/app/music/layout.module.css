@@ -5,10 +5,12 @@
   background-color: #383838;
 }
 .container {
+  overflow-x: hidden;
   max-width: 1920px;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   position: relative;
+  overflow-y: auto; 
   background-color: #181818;
 }
 .main {

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TrackType } from '@/sharedTypes/sharedTypes';
-import { stat } from 'fs';
 
 type initialStateType = {
   currentTrack: TrackType | null;
@@ -69,6 +68,7 @@ const trackSlice = createSlice({
         state.currentTrack = playlist[nextIndexTrack];
       }
     },
+
     setAllTracks: (state, action: PayloadAction<TrackType[]>) => {
       state.allTracks = action.payload;
     },
@@ -78,6 +78,7 @@ const trackSlice = createSlice({
     setFetchIsLoading: (state, action: PayloadAction<boolean>) => {
       state.fetchIsLoading = action.payload;
     },
+
   },
 });
 
@@ -91,5 +92,6 @@ export const {
   setFetchIsLoading,
   setFetchError,
   setAllTracks, 
+
 } = trackSlice.actions;
 export const trackSliceReducer = trackSlice.reducer;

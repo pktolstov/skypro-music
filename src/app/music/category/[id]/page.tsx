@@ -11,6 +11,7 @@ import styles from '../../layout.module.css';
 
 export default function CategoryPage() {
   const params = useParams<{ id: string }>();
+
   const { allTracks, fetchIsLoading, fetchError } = useAppSelector(
     (state) => state.tracks,
   );
@@ -51,10 +52,11 @@ export default function CategoryPage() {
   }, [fetchIsLoading]);
 
   if (error) {
-    return;
-    <div className={styles.errorContainer}>
-      <p className={styles.errorText}>Ошибка загрузки: {error}</p>;
-    </div>;
+    return (
+      <div className={styles.errorContainer}>
+        <p className={styles.errorText}>Ошибка загрузки: {error}</p>;
+      </div>
+    );
   }
 
   return (

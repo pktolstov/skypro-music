@@ -4,7 +4,6 @@ import { BASE_URL, RoutesApp } from '../constants';
 type ApiError = {
   error?: string;
   message?: string;
-  [key: string]: any;
 };
 
 type authUserReturn = {
@@ -24,16 +23,17 @@ export async function signIn(userData: {
       },
     });
     return data.data;
-  } catch (e: any) {
-    // если это AxiosError с response
-    if (axios.isAxiosError(e) && e.response) {
-      const apiErr = e.response.data as ApiError;
-      // выбрасываем именно строку с ошибкой
-      throw new Error(apiErr.error ?? apiErr.message ?? 'Ошибка входа');
+  } catch (error) {
+    if (error instanceof Error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const apiErr = error.response.data as ApiError;
+
+        throw new Error(apiErr.error ?? apiErr.message ?? 'Ошибка входа');
+      }
+      throw new Error(error.message);
     }
-    // иначе неизвестная ошибка
-    throw new Error(e.message);
   }
+  throw new Error();
 }
 
 export async function signUp(userData: {
@@ -49,11 +49,15 @@ export async function signUp(userData: {
     });
 
     return data.data;
-  } catch (e: any) {
-    if (axios.isAxiosError(e) && e.response) {
-      const apiErr = e.response.data as ApiError;
-      throw new Error(apiErr.error ?? apiErr.message ?? 'Ошибка регистрации');
+  } catch (error) {
+    if (error instanceof Error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const apiErr = error.response.data as ApiError;
+
+        throw new Error(apiErr.error ?? apiErr.message ?? 'Ошибка входа');
+      }
+      throw new Error(error.message);
     }
-    throw new Error(e.message);
   }
+  throw new Error();
 }

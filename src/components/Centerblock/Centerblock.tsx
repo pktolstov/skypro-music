@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import styles from './centerblock.module.css';
 import classNames from 'classnames';
 import Search from '../Search/Search';
@@ -22,6 +22,7 @@ export default function Centerblock({
   isLoading,
   errorRes,
 }: TrackDataProps) {
+
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [position, setPosition] = useState<{ top: number; left: number }>({

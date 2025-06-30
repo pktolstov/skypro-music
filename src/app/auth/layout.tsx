@@ -1,6 +1,5 @@
 import { ReactNode, } from 'react';
 import styles from './layout.module.css'
-import { signIn,signUp } from '@/services/auth';
 interface AuthLayoutProps {
   children: ReactNode;
 }

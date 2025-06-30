@@ -59,9 +59,6 @@ export default function Bar() {
     if (audioRef.current) {
       setTimeValue(audioRef.current.currentTime);
     }
-    // console.log(audioRef.current.currentTime);
-    // console.log(audioRef.current?.duration);
-    // console.log(audioRef.current?.volume);
   };
   const onLoadedMetaData = () => {
     if (audioRef.current) {
@@ -74,7 +71,6 @@ export default function Bar() {
     setVolume(Number(e.target.value));
     if (audioRef.current) {
       audioRef.current.volume = volume / 100;
-      // console.log(volume);
     }
   };
   const onProgressChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -95,9 +91,6 @@ export default function Bar() {
     dispatch(toggleShuffle());
   };
 
-  const alertDev = () => {
-    alert('Данный функционал в разработке');
-  };
   return (
     <div className={styles.bar}>
       <audio
@@ -239,9 +232,6 @@ export default function Bar() {
                   type="range"
                   name="range"
                   onChange={onVolumeChange}
-                  // style={{
-                  //   background: `linear-gradient(to right, #7f1a5f ${volume}%, #fff ${volume}%)`,
-                  // }}
                 />
               </div>
             </div>

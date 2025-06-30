@@ -1,4 +1,5 @@
 'use client';
+
 import Centerblock from '@/components/Centerblock/Centerblock';
 import { useAppSelector } from '@/store/store';
 export default function Home() {
@@ -15,4 +16,5 @@ export default function Home() {
       />
     </>
   );
+
 }

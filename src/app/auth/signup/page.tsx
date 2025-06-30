@@ -16,7 +16,7 @@ export default function SignUp() {
     password: '',
   });
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,25 +26,20 @@ export default function SignUp() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true)
-    // if (formData.password !== formData.confirmPassword) {
-    //   setError('Пароли не совпадают');
-    //   return;
-    // }
+    setIsLoading(true);
 
     try {
-      // signUp ожидает { name, login, password }
-      // console.log(formData);
       const user = await signUp(formData);
-      // console.log('Signed up user:', user);
 
       if (user) {
         dispatch(setUser(user));
         router.push('/music/main');
       }
-    } catch (err: any) {
-      setError(err.message || 'Что-то пошло не так');
-    } 
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message || 'Что-то пошло не так');
+      }
+    }
   };
   return (
     <>
@@ -91,9 +86,6 @@ export default function SignUp() {
           Зарегистрироваться
         </button>
       </form>
-      {/* <div className={styles.errorContainer}>
-        {error && <span className={styles.errorText}>{error}</span>}
-      </div> */}
     </>
   );
 }
