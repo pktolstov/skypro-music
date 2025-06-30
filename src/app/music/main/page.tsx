@@ -1,46 +1,20 @@
 'use client';
-import { useState } from 'react';
-import styles from '../layout.module.css';
-import { getTracks } from '@/services/tracksApi';
-import { TrackType } from '@/sharedTypes/sharedTypes';
-import { useEffect } from 'react';
-import { AxiosError } from 'axios';
-import dynamic from 'next/dynamic';
 
+import Centerblock from '@/components/Centerblock/Centerblock';
+import { useAppSelector } from '@/store/store';
 export default function Home() {
-  const [tracks, setTracks] = useState<TrackType[]>([]);
-  const [error, setError] = useState('');
-  const Centerblock = dynamic(
-    () => import('@/components/Centerblock/Centerblock'),
-    {
-      loading: () => <p className={styles.suspense}>Идёт загрузка треков…</p>,
-      ssr: false, 
-    },
+  const { fetchError, fetchIsLoading, allTracks } = useAppSelector(
+    (state) => state.tracks,
   );
-  useEffect(() => {
-    getTracks()
-      .then((res) => {
-        setTracks(res);
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            setError(error.response.data);
-          } else if (error.request) {
-            setError(error.request.data);
-          } else {
-            setError(`Error, ${error.message}`);
-          }
-        }
-      });
-  }, []);
-  if (error) {
-    return (
-      <div className={styles.errorContainer}>
-        <p className={styles.errorText}>Ошибка загрузки: {error}</p>;
-      </div>
-    );
-  }
+  return (
+    <>
+      <Centerblock
+        data={allTracks}
+        isLoading={fetchIsLoading}
+        errorRes={fetchError}
+        title={'Треки'}
+      />
+    </>
+  );
 
-  return <Centerblock data={tracks} title="Треки" />;
 }
