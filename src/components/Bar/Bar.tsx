@@ -71,7 +71,6 @@ export default function Bar() {
     setVolume(Number(e.target.value));
     if (audioRef.current) {
       audioRef.current.volume = volume / 100;
-   
     }
   };
   const onProgressChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,9 +91,6 @@ export default function Bar() {
     dispatch(toggleShuffle());
   };
 
-  const alertDev = () => {
-    alert('Данный функционал в разработке');
-  };
   return (
     <div className={styles.bar}>
       <audio
