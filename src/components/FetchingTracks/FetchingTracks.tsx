@@ -40,5 +40,6 @@ export default function FetchingTracks() {
           dispatch(setFetchIsLoading(false));
         });
     }
-  });
+  }, []);
+  return <></>;
 }

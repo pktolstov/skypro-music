@@ -11,15 +11,17 @@ import styles from '../../layout.module.css';
 
 export default function CategoryPage() {
   const params = useParams<{ id: string }>();
-  const { allTracks, fetchIsLoading } = useAppSelector((state) => state.tracks);
-  const [isLoading, setIsLoading] = useState(false);
+  const { allTracks, fetchIsLoading, fetchError } = useAppSelector(
+    (state) => state.tracks,
+  );
+  const [isLoading, setIsLoading] = useState(true);
   const [filteredTracks, setFilteredTracks] = useState<TrackType[]>([]);
   const [trackSet, setTrackSet] = useState<TrackSetType | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!fetchIsLoading) {
+      if (!fetchIsLoading && allTracks.length) {
         try {
           const trackSetResponse = await getTrackSet(params.id);
 
@@ -57,8 +59,8 @@ export default function CategoryPage() {
 
   return (
     <Centerblock
-      isLoading={fetchIsLoading}
-      errorRes={error}
+      isLoading={isLoading}
+      errorRes={error || fetchError}
       data={filteredTracks}
       title={trackSet ? trackSet.name : ''}
     />

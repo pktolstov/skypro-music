@@ -121,13 +121,15 @@ export default function Centerblock({
           </div>
         </div>
         <div className={styles.content__playlist}>
-          {errorRes
-            ? errorRes
-            : isLoading
-              ? <p className={styles.suspense}>Идёт загрузка треков…</p>
-              : data.map((track: TrackType) => (
-                  <Track key={track._id} track={track} playlist={data} />
-                ))}
+          {errorRes ? (
+            <p className={styles.suspense}>{errorRes}</p>
+          ) : isLoading ? (
+            <p className={styles.suspense}>Идёт загрузка треков…</p>
+          ) : (
+            data.map((track: TrackType) => (
+              <Track key={track._id} track={track} playlist={data} />
+            ))
+          )}
         </div>
       </div>
     </div>
