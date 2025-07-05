@@ -1,23 +1,33 @@
-'use client'
+'use client';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './sidebar.module.css';
-import { useAppSelector,useAppDispatch } from '@/store/store';
-import { clearUser } from '@/store/features/authSlice';
-
+import { useAppSelector, useAppDispatch } from '@/store/store';
+import { clearUser,setIsAuth } from '@/store/features/authSlice';
+import { setFavoriteTracks } from '@/store/features/trackSlice';
 
 export default function Sidebar() {
-  const user = useAppSelector((state) => state.auth.user);
+  const isAuth = useAppSelector((state) => state.auth.isAuth)
+  const username = useAppSelector((state) => state.auth.username);
   const router = useRouter();
-  const displayName = user?.username ?? 'Гость';
+  const displayName = isAuth? username || '' : 'Гость';
   const dispatch = useAppDispatch();
+
   const handleLogout = () => {
-    // 1. Очистить Redux-стор
-    dispatch(clearUser());
-    router.push('/auth/signin');
-  }
+  
+    if (isAuth) {
+      dispatch(clearUser());
+      dispatch(setIsAuth(false))
+      dispatch(setFavoriteTracks([]))
+      router.push('/music/main');
+    } else {
+
+      router.push('/auth/signin');
+    }
+ 
+  };
   return (
     <div className={styles.main__sidebar}>
       <div className={styles.sidebar__personal}>

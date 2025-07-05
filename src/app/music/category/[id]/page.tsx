@@ -6,44 +6,48 @@ import { useState, useEffect } from 'react';
 import { getTracks, getTrackSet } from '@/services/tracksApi';
 import { TrackType, TrackSetType } from '@/sharedTypes/sharedTypes';
 import { AxiosError } from 'axios';
+import { useAppSelector } from '@/store/store';
 import styles from '../../layout.module.css';
 
 export default function CategoryPage() {
   const params = useParams<{ id: string }>();
+
+  const { allTracks, fetchIsLoading, fetchError } = useAppSelector(
+    (state) => state.tracks,
+  );
+  const [isLoading, setIsLoading] = useState(true);
   const [filteredTracks, setFilteredTracks] = useState<TrackType[]>([]);
   const [trackSet, setTrackSet] = useState<TrackSetType | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const allTracks = await getTracks();
-        const trackSetResponse = await getTrackSet(params.id);
+      if (!fetchIsLoading && allTracks.length) {
+        try {
+          const trackSetResponse = await getTrackSet(params.id);
 
-        console.log('trackSet:', trackSetResponse);
+          const filtered = getTracksByIds(allTracks, trackSetResponse.items);
 
-        const filtered = getTracksByIds(allTracks, trackSetResponse.items);
-
-        setFilteredTracks(filtered);
-        setTrackSet(trackSetResponse);
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            setError(error.response.data);
-            console.log(error.response.data);
-          } else if (error.request) {
-            setError(error.request.data);
-            console.log(error.request);
-          } else {
-            setError(`Error, ${error.message}`);
-            console.log('Error', error.message);
+          setFilteredTracks(filtered);
+          setTrackSet(trackSetResponse);
+        } catch (error) {
+          if (error instanceof AxiosError) {
+            if (error.response) {
+              setError(error.response.data);
+            } else if (error.request) {
+              setError(error.request.data);
+            } else {
+              setError(`Error, ${error.message}`);
+            }
           }
+        } finally {
+          setIsLoading(false);
         }
       }
     };
 
     fetchData();
-  }, [params.id]);
+  }, [fetchIsLoading]);
 
   if (error) {
     return (
@@ -54,6 +58,11 @@ export default function CategoryPage() {
   }
 
   return (
-    <Centerblock data={filteredTracks} title={trackSet ? trackSet.name : ''} />
+    <Centerblock
+      isLoading={isLoading}
+      errorRes={error || fetchError}
+      data={filteredTracks}
+      title={trackSet ? trackSet.name : ''}
+    />
   );
 }
