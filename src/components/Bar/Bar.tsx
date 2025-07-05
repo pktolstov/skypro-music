@@ -12,6 +12,7 @@ import {
 } from '@/store/features/trackSlice';
 import { getTimePanel } from '@/utils/helper';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useLikeTrack } from '@/hooks/useLikeTracks';
 
 export default function Bar() {
   const currentTrack = useAppSelector((state) => state.tracks.currentTrack);
@@ -23,6 +24,7 @@ export default function Bar() {
   const [isLoadedTrack, setIsLoadedTrack] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [timeValue, setTimeValue] = useState(0);
+  const { isLike, isLoading, toggleLike } = useLikeTrack(currentTrack);
   useEffect(() => {
     setIsLoadedTrack(false);
   }, [currentTrack]);
@@ -188,7 +190,7 @@ export default function Bar() {
               </div>
 
               <div className={styles.trackPlay__dislike}>
-                <div
+                {/* <div
                   className={classNames(
                     styles.player__btnShuffle,
                     styles.btnIcon,
@@ -197,15 +199,21 @@ export default function Bar() {
                   <svg className={styles.trackPlay__likeSvg}>
                     <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                   </svg>
-                </div>
+                </div> */}
                 <div
                   className={classNames(
                     styles.trackPlay__dislike,
-                    styles.btnIcon,
+                    styles.btnIcon,{
+                      [styles.track__timeSvg_loading]: isLoading,
+                    }
                   )}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleLike();
+                  }}
                 >
                   <svg className={styles.trackPlay__dislikeSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
+                    <use xlinkHref={`/img/icon/sprite.svg#${isLike ? 'icon-like' : 'icon-dislike'}`}></use>
                   </svg>
                 </div>
               </div>

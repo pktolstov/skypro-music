@@ -26,8 +26,6 @@ export default function CategoryPage() {
         try {
           const trackSetResponse = await getTrackSet(params.id);
 
-          // console.log('trackSet:', trackSetResponse);
-
           const filtered = getTracksByIds(allTracks, trackSetResponse.items);
 
           setFilteredTracks(filtered);

@@ -4,23 +4,29 @@ import Link from 'next/link';
 import { formatTime } from '@/utils/helper';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { setCurrentPlaylist, setCurrentTrack, setIsPlay } from '@/store/features/trackSlice';
+import {
+  setCurrentPlaylist,
+  setCurrentTrack,
+  setIsPlay,
+} from '@/store/features/trackSlice';
 import classNames from 'classnames';
+import { useLikeTrack } from '@/hooks/useLikeTracks';
 
 type TrackProps = {
   track: TrackType;
-  playlist: TrackType[]
+  playlist: TrackType[];
 };
-export default function Track({ track,playlist }: TrackProps) {
+export default function Track({ track, playlist }: TrackProps) {
   const dispatch = useAppDispatch();
   const onClickTrack = () => {
     dispatch(setCurrentTrack(track));
     dispatch(setIsPlay(true));
-    dispatch(setCurrentPlaylist(playlist))
+    dispatch(setCurrentPlaylist(playlist));
   };
   const isPlay = useAppSelector((state) => state.tracks.isPlay);
   const currentTrack = useAppSelector((state) => state.tracks.currentTrack);
   const isCurrent = currentTrack?._id === track._id;
+  const { isLike, isLoading, toggleLike } = useLikeTrack(track);
 
   return (
     <div
@@ -58,8 +64,18 @@ export default function Track({ track,playlist }: TrackProps) {
           </Link>
         </div>
         <div className="track__time">
-          <svg className={styles.track__timeSvg}>
-            <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
+          <svg
+            className={classNames(styles.track__timeSvg, {
+              [styles.track__timeSvg_loading]: isLoading,
+            })}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLike();
+            }}
+          >
+            <use
+              xlinkHref={`/img/icon/sprite.svg#${isLike ? 'icon-like' : 'icon-dislike'}`}
+            ></use>
           </svg>
           <span className={styles.track__timeText}>
             {formatTime(track.duration_in_seconds)}
