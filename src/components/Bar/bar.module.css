@@ -36,7 +36,6 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-
 }
 
 .bar__player {
@@ -53,7 +52,6 @@
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-
 }
 
 .bar__volumeBlock {
@@ -254,8 +252,8 @@
 }
 
 .trackPlay__likeSvg {
-  width: 14px;
-  height: 12px;
+  width: 17px;
+  height: 14px;
   fill: transparent;
   stroke: #696969;
 }
@@ -265,8 +263,8 @@
 }
 
 .trackPlay__dislikeSvg {
-  width: 14.34px;
-  height: 13px;
+  width: 17px;
+  height: 14px;
   fill: transparent;
   stroke: #696969;
 }

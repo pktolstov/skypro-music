@@ -126,10 +126,16 @@
   color: #696969;
 }
 
+.track__time {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
 .track__timeSvg {
-  width: 14px;
-  height: 12px;
-  margin-right: 17px;
+  width: 17px;
+  height: 14px;
+  margin-right: 10px;
   fill: transparent;
   stroke: #696969;
   cursor: pointer;
