@@ -8,7 +8,7 @@ import FilterItem from '../FilterItem/FilterItem';
 import FilterModal from '../Filter/Filter';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { getUniqueValueByKey } from '@/utils/helper';
-
+import Skeleton from '../SkeletonTrack/SkeletonTrack';
 type TrackDataProps = {
   data: TrackType[];
   title: string;
@@ -125,7 +125,12 @@ export default function Centerblock({
           {errorRes ? (
             <p className={styles.suspense}>{errorRes}</p>
           ) : isLoading ? (
-            <p className={styles.suspense}>Идёт загрузка треков…</p>
+            // <p className={styles.suspense}>Идёт загрузка треков…</p>
+            <>
+            {Array.from({ length: 15 }).map((_, index) => (
+              <Skeleton key={index} />
+            ))}
+          </>
           ) : (
             data.map((track: TrackType) => (
               <Track key={track._id} track={track} playlist={data} />

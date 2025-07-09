@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { ReactNode } from 'react';
 import styles from './layout.module.css';
 import Navigation from '@/components/Navigation/Navigation';
@@ -22,6 +22,7 @@ export default function MusicLayout({ children }: MusicLayoutProps) {
             <FetchingTracks />
             <Navigation />
             {children}
+
             <Sidebar />
           </main>
           <Bar />

@@ -8,12 +8,14 @@ export default function Home() {
   );
   return (
     <>
+
       <Centerblock
         data={allTracks}
         isLoading={fetchIsLoading}
         errorRes={fetchError}
         title={'Треки'}
       />
+
     </>
   );
 
