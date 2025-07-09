@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { signUp } from '@/services/auth';
 import { useRouter } from 'next/navigation';
-import { setUser } from '@/store/features/authSlice';
+import { setUser,setIsAuth } from '@/store/features/authSlice';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -33,6 +33,7 @@ export default function SignUp() {
 
       if (user) {
         dispatch(setUser(user));
+        dispatch(setIsAuth(true))
         router.push('/music/main');
       }
     } catch (err) {

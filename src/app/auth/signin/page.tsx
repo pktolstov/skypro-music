@@ -2,11 +2,17 @@
 
 import styles from './signin.module.css';
 import { useDispatch } from 'react-redux';
-import { setUser } from '@/store/features/authSlice';
+import {
+  setAccessToken,
+  setRefreshToken,
+  setUser,
+  setUserName,
+  setIsAuth,
+} from '@/store/features/authSlice';
 import classNames from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
-import { signIn } from '@/services/auth';
+import { getTokens, signIn } from '@/services/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -28,7 +34,13 @@ export default function Signin() {
       const user = await signIn(formData);
 
       if (user) {
+        const tokens = await getTokens(formData);
+        console.log(tokens);
+        dispatch(setAccessToken(tokens.access));
+        dispatch(setRefreshToken(tokens.refresh));
         dispatch(setUser(user));
+        dispatch(setUserName(user.username));
+        dispatch(setIsAuth(true))
         router.push('/music/main');
       }
     } catch (err) {

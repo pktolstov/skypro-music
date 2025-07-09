@@ -12,10 +12,20 @@ type authUserReturn = {
   _id: number;
 };
 
-export async function signIn(userData: {
+type authUserProp = {
   email: string;
   password: string;
-}): Promise<authUserReturn> {
+};
+
+type accessTokenType = {
+  access: string;
+};
+type refreshTokenType = {
+  refresh: string;
+};
+type tokensType = accessTokenType & refreshTokenType;
+
+export async function signIn(userData: authUserProp): Promise<authUserReturn> {
   try {
     const data = await axios.post(`${BASE_URL}${RoutesApp.login}`, userData, {
       headers: {
@@ -61,3 +71,15 @@ export async function signUp(userData: {
   }
   throw new Error();
 }
+
+export const getTokens = (data: authUserProp): Promise<tokensType> => {
+  return axios
+    .post(`${BASE_URL}${RoutesApp.newToken}`, data)
+    .then((res) => res.data);
+};
+
+export const refreshToken = (data: string): Promise<accessTokenType> => {
+  return axios
+    .post(`${BASE_URL}${RoutesApp.refreshToken}`, data)
+    .then((res) => res.data);
+};

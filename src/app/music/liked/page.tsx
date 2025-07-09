@@ -2,17 +2,17 @@
 
 import Centerblock from '@/components/Centerblock/Centerblock';
 import { useAppSelector } from '@/store/store';
-export default function Home() {
-  const { fetchError, fetchIsLoading, allTracks } = useAppSelector(
+export default function MyPlaylist() {
+  const { fetchError, fetchIsLoading, favoriteTracks } = useAppSelector(
     (state) => state.tracks,
   );
   return (
     <>
       <Centerblock
-        data={allTracks}
+        data={favoriteTracks}
         isLoading={fetchIsLoading}
         errorRes={fetchError}
-        title={'Треки'}
+        title={'Избранное'}
       />
     </>
   );
