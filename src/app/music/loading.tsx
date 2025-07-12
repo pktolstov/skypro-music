@@ -72,8 +72,9 @@ export default function loadingSkel() {
                 </div>
               </div>
             </div>
+            
           </main>
-          <div className={styles.bar}>
+          {/* <div className={styles.bar}>
             <div className={styles.bar__content}>
               <div className={styles.bar__playerProgress}></div>
               <div className={styles.bar__playerBlock}>
@@ -136,7 +137,7 @@ export default function loadingSkel() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <footer className="footer"></footer>
         </div>
       </div>

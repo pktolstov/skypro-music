@@ -46,7 +46,9 @@ const authSlice = createSlice({
       state.access = '';
       state.refresh = '';
       state.username = '';
-
+      localStorage.removeItem('username');
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
       localStorage.clear(); // овзможно придется заменить на removeItem('user') и тд
     },
   },

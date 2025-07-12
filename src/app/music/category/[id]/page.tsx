@@ -3,20 +3,20 @@ import Centerblock from '@/components/Centerblock/Centerblock';
 import { useParams } from 'next/navigation';
 import { getTracksByIds } from '@/utils/helper';
 import { useState, useEffect } from 'react';
-import { getTracks, getTrackSet } from '@/services/tracksApi';
+import { getTrackSet } from '@/services/tracksApi';
 import { TrackType, TrackSetType } from '@/sharedTypes/sharedTypes';
 import { AxiosError } from 'axios';
-import { useAppSelector } from '@/store/store';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 import styles from '../../layout.module.css';
+import { setPagePlaylist } from '@/store/features/trackSlice';
 
 export default function CategoryPage() {
   const params = useParams<{ id: string }>();
-
-  const { allTracks, fetchIsLoading, fetchError } = useAppSelector(
-    (state) => state.tracks,
-  );
+  const dispatch = useAppDispatch();
+  const { allTracks, fetchIsLoading, fetchError, filteredTracks, filters } =
+    useAppSelector((state) => state.tracks);
   const [isLoading, setIsLoading] = useState(true);
-  const [filteredTracks, setFilteredTracks] = useState<TrackType[]>([]);
+  // const [filteredTracksState, setFilteredTracks] = useState<TrackType[]>([]);
   const [trackSet, setTrackSet] = useState<TrackSetType | null>(null);
   const [error, setError] = useState('');
 
@@ -27,8 +27,7 @@ export default function CategoryPage() {
           const trackSetResponse = await getTrackSet(params.id);
 
           const filtered = getTracksByIds(allTracks, trackSetResponse.items);
-
-          setFilteredTracks(filtered);
+          dispatch(setPagePlaylist(filtered));
           setTrackSet(trackSetResponse);
         } catch (error) {
           if (error instanceof AxiosError) {
@@ -47,7 +46,7 @@ export default function CategoryPage() {
     };
 
     fetchData();
-  }, [fetchIsLoading]);
+  }, [fetchIsLoading, allTracks, params.id, dispatch]);
 
   if (error) {
     return (
@@ -63,6 +62,7 @@ export default function CategoryPage() {
       errorRes={error || fetchError}
       data={filteredTracks}
       title={trackSet ? trackSet.name : ''}
+      pagePlayList={[]}
     />
   );
 }

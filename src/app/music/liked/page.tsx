@@ -1,20 +1,45 @@
 'use client';
-
+import { useEffect, useState } from 'react';
 import Centerblock from '@/components/Centerblock/Centerblock';
-import { useAppSelector } from '@/store/store';
+import { useAppSelector, useAppDispatch } from '@/store/store';
+import { TrackType } from '@/sharedTypes/sharedTypes';
+import { setPagePlaylist } from '@/store/features/trackSlice';
 export default function MyPlaylist() {
-  const { fetchError, fetchIsLoading, favoriteTracks } = useAppSelector(
-    (state) => state.tracks,
-  );
+  //   const { fetchError, fetchIsLoading, favoriteTracks } = useAppSelector(
+  //     (state) => state.tracks,
+  //   );
+  const dispatch = useAppDispatch();
+  const {
+    fetchError,
+    fetchIsLoading,
+    filteredTracks,
+    filters,
+    favoriteTracks,
+  } = useAppSelector((state) => state.tracks);
+  const [playList, setPlayList] = useState<TrackType[]>([]);
+  useEffect(() => {
+    if (!fetchIsLoading && !fetchError) {
+      dispatch(setPagePlaylist(favoriteTracks)); // ✅ Обновляем плейлист для фильтрации
+    }
+  }, [fetchIsLoading, fetchError, favoriteTracks]);
+  useEffect(() => {
+    const hasActiveFilters =
+      filters.authors.length > 0 ||
+      filters.genres.length > 0 ||
+      filters.years !== 'По умолчанию';
+
+    const currentPlayList = filteredTracks;
+    setPlayList(currentPlayList);
+  }, [filteredTracks, filters]);
   return (
     <>
       <Centerblock
-        data={favoriteTracks}
+        data={playList}
+        pagePlayList={favoriteTracks}
         isLoading={fetchIsLoading}
         errorRes={fetchError}
         title={'Избранное'}
       />
     </>
   );
-
 }

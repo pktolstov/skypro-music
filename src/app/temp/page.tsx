@@ -1,7 +1,7 @@
 'use client';
 
 import Skeleton from '@/components/SkeletonTrack/SkeletonTrack';
-import styles from '../loading.module.css';
+import styles from '../music/loading.module.css';
 
 export default function loadingSkel() {
   return (
@@ -71,6 +71,21 @@ export default function loadingSkel() {
                   </svg>
                 </div>
               </div>
+              <div className={'sidebar__block'}>
+                <div className={'sidebar__list'}>
+                  <div className={'sidebar__item'}>
+                    <a className={'sidebar__link'} href="#">
+                      <img
+                        className={'sidebar__img'}
+                        src="/img/playlist01.png"
+                        alt="day's playlist"
+                        width={250}
+                        height={170}
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </main>
           <div className={styles.bar}>
@@ -113,9 +128,7 @@ export default function loadingSkel() {
                           <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                         </svg>
                       </div>
-
                     </div>
-
                   </div>
                 </div>
                 <div className={styles.bar__volumeBlock}>
