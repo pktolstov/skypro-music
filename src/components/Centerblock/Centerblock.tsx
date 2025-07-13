@@ -100,8 +100,9 @@ export default function Centerblock({
     }
   }, [isLoading, errorRes]);
   return (
-    <div className={styles.centerblock}>
-      <Search />
+    <>
+      {/* // <div className={styles.centerblock}>
+    //   <Search /> */}
       <h2 className={styles.centerblock__h2}>{title}</h2>
       <div className={styles.centerblock__filter}>
         <div className={styles.filter__title}>Искать по:</div>
@@ -180,6 +181,7 @@ export default function Centerblock({
           )}
         </div>
       </div>
-    </div>
+      {/* // </div> */}
+    </>
   );
 }

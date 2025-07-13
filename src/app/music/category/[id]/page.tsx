@@ -9,12 +9,19 @@ import { AxiosError } from 'axios';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import styles from '../../layout.module.css';
 import { setPagePlaylist } from '@/store/features/trackSlice';
+import { applySearch } from '@/utils/applySearch';
 
 export default function CategoryPage() {
   const params = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const { allTracks, fetchIsLoading, fetchError, filteredTracks, filters } =
-    useAppSelector((state) => state.tracks);
+  const {
+    allTracks,
+    fetchIsLoading,
+    fetchError,
+    filteredTracks,
+    filters,
+    searchQuery,
+  } = useAppSelector((state) => state.tracks);
   const [isLoading, setIsLoading] = useState(true);
   // const [filteredTracksState, setFilteredTracks] = useState<TrackType[]>([]);
   const [trackSet, setTrackSet] = useState<TrackSetType | null>(null);
@@ -48,6 +55,14 @@ export default function CategoryPage() {
     fetchData();
   }, [fetchIsLoading, allTracks, params.id, dispatch]);
 
+  const hasFilters =
+    filters.authors.length > 0 ||
+    filters.genres.length > 0 ||
+    filters.years !== 'По умолчанию';
+
+  const baseTracks = hasFilters ? filteredTracks : allTracks;
+  const searchedTracks = applySearch(baseTracks, searchQuery);
+
   if (error) {
     return (
       <div className={styles.errorContainer}>
@@ -60,7 +75,7 @@ export default function CategoryPage() {
     <Centerblock
       isLoading={isLoading}
       errorRes={error || fetchError}
-      data={filteredTracks}
+      data={searchedTracks}
       title={trackSet ? trackSet.name : ''}
       pagePlayList={[]}
     />

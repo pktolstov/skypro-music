@@ -8,6 +8,7 @@ import Bar from '@/components/Bar/Bar';
 import { useInitAuth } from '@/hooks/useInitAuth';
 import { clearUser } from '@/store/features/authSlice';
 import FetchingTracks from '@/components/FetchingTracks/FetchingTracks';
+import Search from '@/components/Search/Search';
 
 interface MusicLayoutProps {
   children: ReactNode;
@@ -15,14 +16,6 @@ interface MusicLayoutProps {
 
 export default function MusicLayout({ children }: MusicLayoutProps) {
   useInitAuth();
-  // const dispatch = useAppDispatch();
-  // const isAuth = useAppSelector((state) => state.auth.isAuth);
-  // useEffect(() => {
-  //   if (!isAuth) {
-  //     dispatch(clearUser());
-  //   }
-  // }, [isAuth, dispatch]);
-
   return (
     <>
       <div className={styles.wrapper}>
@@ -30,7 +23,10 @@ export default function MusicLayout({ children }: MusicLayoutProps) {
           <main className={styles.main}>
             <FetchingTracks />
             <Navigation />
-            {children}
+            <div className={styles.centerblock}>
+              <Search />
+              {children}
+            </div>
 
             <Sidebar />
           </main>

@@ -4,6 +4,7 @@ import Centerblock from '@/components/Centerblock/Centerblock';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { setPagePlaylist } from '@/store/features/trackSlice';
+import { applySearch } from '@/utils/applySearch'
 export default function MyPlaylist() {
   //   const { fetchError, fetchIsLoading, favoriteTracks } = useAppSelector(
   //     (state) => state.tracks,
@@ -15,6 +16,7 @@ export default function MyPlaylist() {
     filteredTracks,
     filters,
     favoriteTracks,
+    searchQuery,
   } = useAppSelector((state) => state.tracks);
   const [playList, setPlayList] = useState<TrackType[]>([]);
   useEffect(() => {
@@ -28,9 +30,12 @@ export default function MyPlaylist() {
       filters.genres.length > 0 ||
       filters.years !== 'По умолчанию';
 
-    const currentPlayList = filteredTracks;
-    setPlayList(currentPlayList);
-  }, [filteredTracks, filters]);
+      const baseList = hasActiveFilters ? filteredTracks : favoriteTracks;
+      const searchedList = applySearch(baseList, searchQuery);
+  
+      setPlayList(searchedList);
+    // setPlayList(currentPlayList);
+  }, [filteredTracks, favoriteTracks, filters, searchQuery]);
   return (
     <>
       <Centerblock

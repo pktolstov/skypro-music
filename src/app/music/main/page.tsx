@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import Centerblock from '@/components/Centerblock/Centerblock';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { useAppSelector } from '@/store/store';
+import { applySearch } from '@/utils/applySearch';
 export default function Home() {
-  const { fetchError, fetchIsLoading, allTracks, filteredTracks, filters } =
+  const { fetchError, fetchIsLoading, allTracks, filteredTracks, filters, searchQuery } =
     useAppSelector((state) => state.tracks);
   const [playList, setPlayList] = useState<TrackType[]>([]);
   useEffect(() => {
@@ -14,8 +15,10 @@ export default function Home() {
       filters.years !== 'По умолчанию';
   
     const currentPlayList = hasActiveFilters ? filteredTracks : allTracks;
-    setPlayList(currentPlayList);
-  }, [filteredTracks, allTracks, filters]);
+    const searchedTracks = applySearch(currentPlayList, searchQuery);
+    // setPlayList(currentPlayList);
+    setPlayList(searchedTracks);
+  }, [filteredTracks, allTracks, filters,searchQuery]);
   
   return (
     <>

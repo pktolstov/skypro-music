@@ -26,7 +26,7 @@ export default function loadingSkel() {
               </div>
             </nav> */}
             <div className={styles.centerblock}>
-              <div className={styles.centerblock__search}>
+              {/* <div className={styles.centerblock__search}>
                 <svg className={styles.search__svg}>
                   <use xlinkHref="/img/icon/sprite.svg#icon-search"></use>
                 </svg>
@@ -36,7 +36,7 @@ export default function loadingSkel() {
                   placeholder="Поиск"
                   name="search"
                 />
-              </div>
+              </div> */}
               <h2 className={styles.centerblock__h2}></h2>
               <div className={styles.centerblock__filter}>
                 <div className={styles.filter__title}>Искать по:</div>
@@ -72,7 +72,7 @@ export default function loadingSkel() {
                 </div>
               </div>
             </div>
-            
+
           </main>
           {/* <div className={styles.bar}>
             <div className={styles.bar__content}>
