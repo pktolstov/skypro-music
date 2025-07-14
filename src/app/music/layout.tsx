@@ -1,12 +1,10 @@
 'use client';
-import { ReactNode, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '@/store/store';
+import { ReactNode } from 'react';
 import styles from './layout.module.css';
 import Navigation from '@/components/Navigation/Navigation';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Bar from '@/components/Bar/Bar';
 import { useInitAuth } from '@/hooks/useInitAuth';
-import { clearUser } from '@/store/features/authSlice';
 import FetchingTracks from '@/components/FetchingTracks/FetchingTracks';
 import Search from '@/components/Search/Search';
 

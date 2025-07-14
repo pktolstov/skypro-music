@@ -4,11 +4,8 @@ import Centerblock from '@/components/Centerblock/Centerblock';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { setPagePlaylist } from '@/store/features/trackSlice';
-import { applySearch } from '@/utils/applySearch'
+import { applySearch } from '@/utils/applySearch';
 export default function MyPlaylist() {
-  //   const { fetchError, fetchIsLoading, favoriteTracks } = useAppSelector(
-  //     (state) => state.tracks,
-  //   );
   const dispatch = useAppDispatch();
   const {
     fetchError,
@@ -21,7 +18,7 @@ export default function MyPlaylist() {
   const [playList, setPlayList] = useState<TrackType[]>([]);
   useEffect(() => {
     if (!fetchIsLoading && !fetchError) {
-      dispatch(setPagePlaylist(favoriteTracks)); // ✅ Обновляем плейлист для фильтрации
+      dispatch(setPagePlaylist(favoriteTracks));
     }
   }, [fetchIsLoading, fetchError, favoriteTracks]);
   useEffect(() => {
@@ -30,11 +27,10 @@ export default function MyPlaylist() {
       filters.genres.length > 0 ||
       filters.years !== 'По умолчанию';
 
-      const baseList = hasActiveFilters ? filteredTracks : favoriteTracks;
-      const searchedList = applySearch(baseList, searchQuery);
-  
-      setPlayList(searchedList);
-    // setPlayList(currentPlayList);
+    const baseList = hasActiveFilters ? filteredTracks : favoriteTracks;
+    const searchedList = applySearch(baseList, searchQuery);
+
+    setPlayList(searchedList);
   }, [filteredTracks, favoriteTracks, filters, searchQuery]);
   return (
     <>

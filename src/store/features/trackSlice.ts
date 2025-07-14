@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TrackType } from '@/sharedTypes/sharedTypes';
-import { Elsie } from 'next/font/google';
 import { applyFilters } from '@/utils/applyFilters';
-import { applySearch } from '@/utils/applySearch';
 
 export type initialStateType = {
   currentTrack: TrackType | null;
@@ -141,22 +139,9 @@ const trackSlice = createSlice({
     setFilterYears: (state, action: PayloadAction<string>) => {
       state.filters.years = action.payload;
       state.filteredTracks = applyFilters(state);
-
-      // if (action.payload === 'Сначала новые') {
-      //   state.filteredTracks = [...state.pagePlayList].sort((a, b) =>
-      //     b.release_date.localeCompare(a.release_date),
-      //   );
-      // } else if (action.payload === 'Сначала старые') {
-      //   state.filteredTracks = [...state.pagePlayList].sort((a, b) =>
-      //     a.release_date.localeCompare(b.release_date),
-      //   );
-      // } else {
-      //   state.filteredTracks = state.pagePlayList;
-      // }
     },
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
-
     },
   },
 });

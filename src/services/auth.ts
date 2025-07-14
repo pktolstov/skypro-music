@@ -80,6 +80,6 @@ export const getTokens = (data: authUserProp): Promise<tokensType> => {
 
 export const refreshToken = (data: string): Promise<accessTokenType> => {
   return axios
-    .post(`${BASE_URL}${RoutesApp.refreshToken}`, {data})
+    .post(`${BASE_URL}${RoutesApp.refreshToken}`, { data })
     .then((res) => res.data);
 };

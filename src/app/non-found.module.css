@@ -13,9 +13,9 @@
 }
 
 .modal__block {
-display: flex;
-align-items: center;
-flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   position: absolute;
   z-index: 2;
   left: calc(50% - (366px / 2));
@@ -24,10 +24,10 @@ flex-direction: column;
 }
 
 .modal__headbox {
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
 }
 .modal__title {
   font-family: 'StratosSkyeng';
@@ -38,7 +38,6 @@ flex-direction: column;
   line-height: 168px;
   letter-spacing: 0;
   color: #ffffff;
-
 }
 .modal__head {
   display: flex;
@@ -47,10 +46,8 @@ flex-direction: column;
 }
 
 .modal__h2 {
-  /* font-family: 'StratosSkyeng'; */
-  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
   font-variant-numeric: lining-nums;
-  /* font-variant-numeric: proportional-nums; */
+
   font-size: 32px;
   font-weight: 400;
   line-height: 40px;
@@ -67,7 +64,7 @@ flex-direction: column;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: -0.3%;
-  color: #4E4E4E;
+  color: #4e4e4e;
   text-align: center;
 }
 
@@ -76,8 +73,7 @@ flex-direction: column;
   height: 52px;
   background-color: #580ea2;
   border-radius: 6px;
-  /* margin-top: 60px; */
-  /* margin-bottom: 20px; */
+
   border: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -97,10 +93,9 @@ flex-direction: column;
 }
 
 .modal__btnEnter:hover {
-    background-color: #3f007d;
+  background-color: #3f007d;
 }
 
-
 .modal__btnEnter:active {
-    background-color: #271a58;
+  background-color: #271a58;
 }

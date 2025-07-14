@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import styles from './centerblock.module.css';
 import classNames from 'classnames';
-import Search from '../Search/Search';
 import Track from '../Track/Track';
 import FilterItem from '../FilterItem/FilterItem';
 import FilterModal from '../Filter/Filter';
@@ -16,7 +15,6 @@ import {
   setFilterYears,
 } from '@/store/features/trackSlice';
 import { setPagePlaylist } from '@/store/features/trackSlice';
-import { RootState } from '@reduxjs/toolkit/query';
 type TrackDataProps = {
   data: TrackType[];
   title: string;
@@ -58,23 +56,19 @@ export default function Centerblock({
       });
     }
 
-    // если клик по тому же самому активному фильтру — просто закрываем модалку
     if (activeFilter === label) {
       setActiveFilter(null);
       return;
     }
 
-    // обновляем values в зависимости от фильтра
     if (label === 'исполнителю') {
       setValues(getUniqueValueByKey(data, 'author'));
     } else if (label === 'жанру') {
       setValues(getUniqueValueByKey(data, 'genre'));
     } else if (label === 'году выпуска') {
-      // setValues(getUniqueValueByKey(data, 'release_date'));
       setValues(['По умолчанию', 'Сначала новые', 'Сначала старые']);
     }
 
-    // открываем модалку для нового фильтра
     setActiveFilter(label);
   };
 
@@ -87,9 +81,7 @@ export default function Centerblock({
       dispatch(setFilterAuthors(value));
     } else if (activeFilter === 'жанру') {
       dispatch(setFilterGenres(value));
-    }
-    // Год выпуска остаётся одиночным выбором (как сортировка)
-    else if (activeFilter === 'году выпуска') {
+    } else if (activeFilter === 'году выпуска') {
       dispatch(setFilterYears(value));
       setSelectedValue([value]);
     }
@@ -101,8 +93,6 @@ export default function Centerblock({
   }, [isLoading, errorRes]);
   return (
     <>
-      {/* // <div className={styles.centerblock}>
-    //   <Search /> */}
       <h2 className={styles.centerblock__h2}>{title}</h2>
       <div className={styles.centerblock__filter}>
         <div className={styles.filter__title}>Искать по:</div>
@@ -136,7 +126,6 @@ export default function Centerblock({
         />
       </div>
 
-      {/* Глобальное модальное окно */}
       {activeFilter && (
         <FilterModal
           values={values}
@@ -168,7 +157,6 @@ export default function Centerblock({
           {errorRes ? (
             <p className={styles.suspense}>{errorRes}</p>
           ) : isLoading ? (
-            // <p className={styles.suspense}>Идёт загрузка треков…</p>
             <>
               {Array.from({ length: 15 }).map((_, index) => (
                 <Skeleton key={index} />
@@ -181,7 +169,6 @@ export default function Centerblock({
           )}
         </div>
       </div>
-      {/* // </div> */}
     </>
   );
 }

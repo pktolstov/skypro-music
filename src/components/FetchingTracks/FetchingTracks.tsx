@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 
 export default function FetchingTracks() {
   const dispatch = useAppDispatch();
-  // dispatch(setFetchError(''));
+
   const router = useRouter();
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -64,13 +64,10 @@ export default function FetchingTracks() {
               if (error.response.status === 401) {
                 dispatch(setIsAuth(false));
                 dispatch(clearUser());
-               
-                // dispatch(setFetchError('Пожалуйста, авторизуйтесь!'));
+
                 setErrorMsg('Пожалуйста, авторизуйтесь');
-              
               } else {
                 setErrorMsg(error.response.data.message);
-                // dispatch(setFetchError(error.response.data.message));
               }
             } else if (error.request) {
               setErrorMsg('Произошла ошибка. Попробуйте позже');
@@ -91,7 +88,3 @@ export default function FetchingTracks() {
 
   return null;
 }
-
-// .catch(() => {
-//   dispatch(setFetchError('Ошибка загрузки избранных треков.'));
-// })

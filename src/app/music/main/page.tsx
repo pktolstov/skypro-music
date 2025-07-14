@@ -5,21 +5,26 @@ import { TrackType } from '@/sharedTypes/sharedTypes';
 import { useAppSelector } from '@/store/store';
 import { applySearch } from '@/utils/applySearch';
 export default function Home() {
-  const { fetchError, fetchIsLoading, allTracks, filteredTracks, filters, searchQuery } =
-    useAppSelector((state) => state.tracks);
+  const {
+    fetchError,
+    fetchIsLoading,
+    allTracks,
+    filteredTracks,
+    filters,
+    searchQuery,
+  } = useAppSelector((state) => state.tracks);
   const [playList, setPlayList] = useState<TrackType[]>([]);
   useEffect(() => {
     const hasActiveFilters =
       filters.authors.length > 0 ||
       filters.genres.length > 0 ||
       filters.years !== 'По умолчанию';
-  
+
     const currentPlayList = hasActiveFilters ? filteredTracks : allTracks;
     const searchedTracks = applySearch(currentPlayList, searchQuery);
-    // setPlayList(currentPlayList);
     setPlayList(searchedTracks);
-  }, [filteredTracks, allTracks, filters,searchQuery]);
-  
+  }, [filteredTracks, allTracks, filters, searchQuery]);
+
   return (
     <>
       <Centerblock

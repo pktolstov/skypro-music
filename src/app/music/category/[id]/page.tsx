@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { getTracksByIds } from '@/utils/helper';
 import { useState, useEffect } from 'react';
 import { getTrackSet } from '@/services/tracksApi';
-import { TrackType, TrackSetType } from '@/sharedTypes/sharedTypes';
+import { TrackSetType } from '@/sharedTypes/sharedTypes';
 import { AxiosError } from 'axios';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import styles from '../../layout.module.css';
@@ -23,7 +23,6 @@ export default function CategoryPage() {
     searchQuery,
   } = useAppSelector((state) => state.tracks);
   const [isLoading, setIsLoading] = useState(true);
-  // const [filteredTracksState, setFilteredTracks] = useState<TrackType[]>([]);
   const [trackSet, setTrackSet] = useState<TrackSetType | null>(null);
   const [error, setError] = useState('');
 

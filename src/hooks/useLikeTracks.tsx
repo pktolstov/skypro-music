@@ -6,7 +6,7 @@ import { withReauth } from '@/utils/withReAuth';
 import { addLike, removeLike } from '@/services/tracksApi';
 import { addLikedTracks, removeLikedTracks } from '@/store/features/trackSlice';
 import { setFetchError } from '@/store/features/trackSlice';
-import { setIsAuth,clearUser } from '@/store/features/authSlice';
+import { setIsAuth, clearUser } from '@/store/features/authSlice';
 import { useRouter } from 'next/navigation';
 
 type returnTypeHook = {
