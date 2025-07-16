@@ -54,12 +54,11 @@ export const useLikeTrack = (track: TrackType | null): returnTypeHook => {
               ) {
                 dispatch(setIsAuth(false));
                 dispatch(clearUser());
-                // dispatch(setFetchError('Пожалуйста, авторизуйтесь!'));
+
                 setErrorMsg('Пожалуйста, авторизуйтесь');
                 router.push('/auth/signin');
               } else {
                 setErrorMsg(error.response.data.message);
-                // dispatch(setFetchError(error.response.data.message));
               }
             } else if (error.request) {
               setErrorMsg('Произошла ошибка. Попробуйте позже');

@@ -28,7 +28,6 @@ export default function Centerblock({
   title,
   isLoading,
   errorRes,
-  pagePlayList,
 }: TrackDataProps) {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const filteredTracks = useAppSelector((state) => state.tracks.filteredTracks);
@@ -41,7 +40,6 @@ export default function Centerblock({
   const dispatch = useAppDispatch();
 
   const onSelectAuthor = (author: string) => {
-    console.log(author);
     dispatch(setFilterAuthors(author));
   };
   const handleFilterClick = (

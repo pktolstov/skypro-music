@@ -35,7 +35,6 @@ export default function Signin() {
 
       if (user) {
         const tokens = await getTokens(formData);
-        console.log(tokens);
         dispatch(setAccessToken(tokens.access));
         dispatch(setRefreshToken(tokens.refresh));
         dispatch(setUser(user));

@@ -12,12 +12,9 @@ import {
 import { AxiosError } from 'axios';
 import { withReauth } from '@/utils/withReAuth';
 import { setIsAuth, clearUser } from '@/store/features/authSlice';
-import { useRouter } from 'next/navigation';
 
 export default function FetchingTracks() {
   const dispatch = useAppDispatch();
-
-  const router = useRouter();
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -60,7 +57,6 @@ export default function FetchingTracks() {
         .catch((error) => {
           if (error instanceof AxiosError) {
             if (error.response) {
-              console.log(error.response.status);
               if (error.response.status === 401) {
                 dispatch(setIsAuth(false));
                 dispatch(clearUser());

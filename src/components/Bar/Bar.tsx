@@ -114,7 +114,7 @@ export default function Bar() {
           value={timeValue}
           onChange={onProgressChange}
         />
-        {/* <div className={styles.bar__playerProgress}></div> */}
+
         <div className={styles.bar__playerBlock}>
           <div className={styles.bar__player}>
             <div className={styles.player__controls}>

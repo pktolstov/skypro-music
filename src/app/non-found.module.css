@@ -31,7 +31,7 @@
 }
 .modal__title {
   font-family: 'StratosSkyeng';
-  /* font-variant-numeric: lining-nums; */
+
   font-variant-numeric: proportional-nums;
   font-size: 160px;
   font-weight: 400;

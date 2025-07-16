@@ -20,7 +20,6 @@ export function getUniqueValueByKey(
   arr: TrackType[],
   key: keyof TrackType,
 ): string[] {
-  // Use Set for storing unique values
   const uniqueValues = new Set<string>();
   arr.forEach((item) => {
     const value = item[key];
