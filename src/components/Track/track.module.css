@@ -62,7 +62,6 @@
   border-radius: 50%;
 }
 
-/* Пульсация */
 .track_pulse {
   animation: pulse 1.5s infinite;
 }

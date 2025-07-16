@@ -3,20 +3,26 @@ import Centerblock from '@/components/Centerblock/Centerblock';
 import { useParams } from 'next/navigation';
 import { getTracksByIds } from '@/utils/helper';
 import { useState, useEffect } from 'react';
-import { getTracks, getTrackSet } from '@/services/tracksApi';
-import { TrackType, TrackSetType } from '@/sharedTypes/sharedTypes';
+import { getTrackSet } from '@/services/tracksApi';
+import { TrackSetType } from '@/sharedTypes/sharedTypes';
 import { AxiosError } from 'axios';
-import { useAppSelector } from '@/store/store';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 import styles from '../../layout.module.css';
+import { setPagePlaylist } from '@/store/features/trackSlice';
+import { applySearch } from '@/utils/applySearch';
 
 export default function CategoryPage() {
   const params = useParams<{ id: string }>();
-
-  const { allTracks, fetchIsLoading, fetchError } = useAppSelector(
-    (state) => state.tracks,
-  );
+  const dispatch = useAppDispatch();
+  const {
+    allTracks,
+    fetchIsLoading,
+    fetchError,
+    filteredTracks,
+    filters,
+    searchQuery,
+  } = useAppSelector((state) => state.tracks);
   const [isLoading, setIsLoading] = useState(true);
-  const [filteredTracks, setFilteredTracks] = useState<TrackType[]>([]);
   const [trackSet, setTrackSet] = useState<TrackSetType | null>(null);
   const [error, setError] = useState('');
 
@@ -27,8 +33,7 @@ export default function CategoryPage() {
           const trackSetResponse = await getTrackSet(params.id);
 
           const filtered = getTracksByIds(allTracks, trackSetResponse.items);
-
-          setFilteredTracks(filtered);
+          dispatch(setPagePlaylist(filtered));
           setTrackSet(trackSetResponse);
         } catch (error) {
           if (error instanceof AxiosError) {
@@ -47,7 +52,15 @@ export default function CategoryPage() {
     };
 
     fetchData();
-  }, [fetchIsLoading]);
+  }, [fetchIsLoading, allTracks, params.id, dispatch]);
+
+  const hasFilters =
+    filters.authors.length > 0 ||
+    filters.genres.length > 0 ||
+    filters.years !== 'По умолчанию';
+
+  const baseTracks = hasFilters ? filteredTracks : allTracks;
+  const searchedTracks = applySearch(baseTracks, searchQuery);
 
   if (error) {
     return (
@@ -61,8 +74,9 @@ export default function CategoryPage() {
     <Centerblock
       isLoading={isLoading}
       errorRes={error || fetchError}
-      data={filteredTracks}
+      data={searchedTracks}
       title={trackSet ? trackSet.name : ''}
+      pagePlayList={[]}
     />
   );
 }

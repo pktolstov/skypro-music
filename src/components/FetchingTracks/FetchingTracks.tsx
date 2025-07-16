@@ -12,13 +12,12 @@ import {
 import { AxiosError } from 'axios';
 import { withReauth } from '@/utils/withReAuth';
 import { setIsAuth, clearUser } from '@/store/features/authSlice';
-import { useRouter } from 'next/navigation';
 
 export default function FetchingTracks() {
   const dispatch = useAppDispatch();
-  // dispatch(setFetchError(''));
-  const router = useRouter();
+
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
   useEffect(() => {
     const accessToken = localStorage.getItem('access');
     const refreshToken = localStorage.getItem('refresh');
@@ -58,19 +57,13 @@ export default function FetchingTracks() {
         .catch((error) => {
           if (error instanceof AxiosError) {
             if (error.response) {
-              if (
-                error.response.data.message ===
-                'Токен недействителен или просрочен.'
-              ) {
+              if (error.response.status === 401) {
                 dispatch(setIsAuth(false));
-                clearUser();
-                // localStorage.removeItem('username');
-                // dispatch(setFetchError('Пожалуйста, авторизуйтесь!'));
+                dispatch(clearUser());
+
                 setErrorMsg('Пожалуйста, авторизуйтесь');
-                // router.push('/auth/signin');
               } else {
                 setErrorMsg(error.response.data.message);
-                // dispatch(setFetchError(error.response.data.message));
               }
             } else if (error.request) {
               setErrorMsg('Произошла ошибка. Попробуйте позже');
@@ -91,7 +84,3 @@ export default function FetchingTracks() {
 
   return null;
 }
-
-// .catch(() => {
-//   dispatch(setFetchError('Ошибка загрузки избранных треков.'));
-// })

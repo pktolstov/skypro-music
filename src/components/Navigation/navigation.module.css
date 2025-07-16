@@ -28,11 +28,6 @@
   justify-content: space-between;
 }
 
-/* .nav__menu {
-    display: block;
-    visibility: visible;
-  } */
-
 .nav__menu {
   display: none;
 }
@@ -42,8 +37,6 @@
 }
 
 .logo__image {
-  /* width: 113.33px;
-    height: 17px; */
   color: #181818;
 }
 
