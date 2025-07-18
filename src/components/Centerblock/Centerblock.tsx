@@ -39,9 +39,6 @@ export default function Centerblock({
   const [values, setValues] = useState<string[]>([]);
   const dispatch = useAppDispatch();
 
-  const onSelectAuthor = (author: string) => {
-    dispatch(setFilterAuthors(author));
-  };
   const handleFilterClick = (
     label: string,
     buttonRef: HTMLDivElement | null,
