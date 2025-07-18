@@ -50,7 +50,7 @@ export default function Centerblock({
       const rect = buttonRef.getBoundingClientRect();
       setPosition({
         top: rect.bottom + window.scrollY + 8,
-        left: rect.left + window.scrollX - 30,
+        left: rect.left + window.scrollX - 130,
       });
     }
 
@@ -103,13 +103,11 @@ export default function Centerblock({
               : undefined
           }
           onClick={handleFilterClick}
-          onSelect={onSelectAuthor}
         />
         <FilterItem
           label="году выпуска"
           isActive={activeFilter === 'году выпуска'}
           onClick={handleFilterClick}
-          onSelect={onSelectAuthor}
         />
         <FilterItem
           label="жанру"
@@ -120,7 +118,6 @@ export default function Centerblock({
               ? getUniqueValueByKey(filteredTracks, 'genre').length
               : undefined
           }
-          onSelect={onSelectAuthor}
         />
       </div>
 
