@@ -2,6 +2,7 @@
 
 import styles from './signin.module.css';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   setAccessToken,
   setRefreshToken,
@@ -39,11 +40,12 @@ export default function Signin() {
         dispatch(setRefreshToken(tokens.refresh));
         dispatch(setUser(user));
         dispatch(setUserName(user.username));
-        dispatch(setIsAuth(true))
+        dispatch(setIsAuth(true));
         router.push('/music/main');
       }
     } catch (err) {
       if (err instanceof Error) {
+        toast.error(err.message);
         setError(err.message || 'Что-то пошло не так');
       }
     } finally {
