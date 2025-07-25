@@ -6,7 +6,7 @@ import { withReauth } from '@/utils/withReAuth';
 import { addLike, removeLike } from '@/services/tracksApi';
 import { addLikedTracks, removeLikedTracks } from '@/store/features/trackSlice';
 import { setFetchError } from '@/store/features/trackSlice';
-import { setIsAuth } from '@/store/features/authSlice';
+import { setIsAuth, clearUser } from '@/store/features/authSlice';
 import { useRouter } from 'next/navigation';
 
 type returnTypeHook = {
@@ -53,13 +53,12 @@ export const useLikeTrack = (track: TrackType | null): returnTypeHook => {
                 'Токен недействителен или просрочен.'
               ) {
                 dispatch(setIsAuth(false));
-                localStorage.removeItem('username');
-                // dispatch(setFetchError('Пожалуйста, авторизуйтесь!'));
+                dispatch(clearUser());
+
                 setErrorMsg('Пожалуйста, авторизуйтесь');
                 router.push('/auth/signin');
               } else {
                 setErrorMsg(error.response.data.message);
-                // dispatch(setFetchError(error.response.data.message));
               }
             } else if (error.request) {
               setErrorMsg('Произошла ошибка. Попробуйте позже');

@@ -5,28 +5,25 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './sidebar.module.css';
 import { useAppSelector, useAppDispatch } from '@/store/store';
-import { clearUser,setIsAuth } from '@/store/features/authSlice';
+import { clearUser, setIsAuth } from '@/store/features/authSlice';
 import { setFavoriteTracks } from '@/store/features/trackSlice';
 
 export default function Sidebar() {
-  const isAuth = useAppSelector((state) => state.auth.isAuth)
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const username = useAppSelector((state) => state.auth.username);
   const router = useRouter();
-  const displayName = isAuth? username || '' : 'Гость';
+  const displayName = isAuth ? username || '' : 'Гость';
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-  
     if (isAuth) {
       dispatch(clearUser());
-      dispatch(setIsAuth(false))
-      dispatch(setFavoriteTracks([]))
+      dispatch(setIsAuth(false));
+      dispatch(setFavoriteTracks([]));
       router.push('/music/main');
     } else {
-
       router.push('/auth/signin');
     }
- 
   };
   return (
     <div className={styles.main__sidebar}>

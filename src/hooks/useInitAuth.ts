@@ -1,4 +1,8 @@
-import { setAccessToken, setRefreshToken,setUserName } from '@/store/features/authSlice';
+import {
+  setAccessToken,
+  setRefreshToken,
+  setUserName,
+} from '@/store/features/authSlice';
 import { useAppDispatch } from '@/store/store';
 import { useEffect } from 'react';
 export const useInitAuth = () => {
